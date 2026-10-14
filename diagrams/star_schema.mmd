@@ -1,0 +1,38 @@
+erDiagram
+    dim_date {
+        int date_sk PK
+        date full_date
+        int year
+        int month
+        varchar month_name
+        int day
+    }
+    dim_user {
+        int user_sk PK
+        int user_id
+        varchar name
+        varchar email
+        varchar address
+        timestamp start_date
+        timestamp end_date
+        boolean is_current
+    }
+    dim_product {
+        int product_sk PK
+        int product_id
+        varchar product_name
+        varchar category
+        decimal price
+    }
+    fact_order_items {
+        int order_item_id PK
+        int user_sk FK
+        int product_sk FK
+        int date_sk FK
+        int quantity
+        decimal line_total
+    }
+
+    dim_user ||--o{ fact_order_items : "purchased_by"
+    dim_product ||--o{ fact_order_items : "includes"
+    dim_date ||--o{ fact_order_items : "occurs_on"

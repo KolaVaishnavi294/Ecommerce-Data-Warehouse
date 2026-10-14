@@ -1,0 +1,30 @@
+erDiagram
+    users {
+        int user_id PK
+        varchar name
+        varchar email
+        varchar address
+        timestamp created_at
+    }
+    products {
+        int product_id PK
+        varchar name
+        varchar category
+        decimal price
+    }
+    orders {
+        int order_id PK
+        int user_id FK
+        timestamp order_date
+    }
+    order_items {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal total_price
+    }
+
+    users ||--o{ orders : "places"
+    orders ||--|{ order_items : "contains"
+    products ||--o{ order_items : "included_in"
